@@ -22,7 +22,7 @@ export function App() {
   async function getData() {
     try {
       await axios.get(apiUrl).then((res) => {
-        repoMain.current = res.data as RepoType[];
+        repoMain.current = sortRepos(res.data as RepoType[]);
       });
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -49,6 +49,17 @@ export function App() {
       }
     );
     setRepos(filteredRepos);
+  }
+
+  function sortRepos(passedRepos: RepoType[]) {
+    passedRepos
+      .sort((a, b) => {
+        return (
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        );
+      })
+      .reverse();
+    return passedRepos;
   }
   return (
     <div className="App">
