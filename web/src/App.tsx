@@ -78,6 +78,24 @@ export function App() {
     }
     return commitData;
   }
+
+  async function getReadmeData(repoName: string) {
+    let readmeData = 'Readme not available' as string;
+
+    try {
+      await axios
+        .get(`https://raw.githubusercontent.com/${repoName}/master/README.md`)
+        //.get(
+        //  `https://raw.githubusercontent.com/MichaelThomas0721/Programming-Problems/main/README.md`
+        //)
+        .then((res) => {
+          readmeData = res.data;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    return readmeData;
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -96,7 +114,13 @@ export function App() {
           <div
             key={index}
             // eslint-disable-next-line no-console
-            onClick={() => console.log(getCommitData(repo.full_name))}
+            onClick={() =>
+              console.log(
+                getCommitData(repo.full_name) +
+                  ', ' +
+                  getReadmeData(repo.full_name)
+              )
+            }
           >
             <RepoBox
               id={repo.id}
