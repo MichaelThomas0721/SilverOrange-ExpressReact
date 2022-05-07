@@ -21,6 +21,7 @@ export function App() {
     readme: null,
   } as unknown as CommitType);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [errorPopupOpen, setErrorPopupOpen] = useState(false);
 
   useEffect(() => {
     getInitialData();
@@ -33,6 +34,7 @@ export function App() {
         repoMain.current = sortRepos(res.data as RepoType[]);
       });
     } catch (error) {
+      setErrorPopupOpen(true);
       // eslint-disable-next-line no-console
       console.log(error);
     }
@@ -150,6 +152,9 @@ export function App() {
             readme={popupData.readme}
             closePopup={() => setPopupOpen(false)}
           />
+        </div>
+        <div className={errorPopupOpen ? 'shown' : 'hidden'}>
+          <h1>Error fetching repositories, please try again</h1>
         </div>
       </header>
     </div>
