@@ -2,6 +2,7 @@ import './App.css';
 
 import React, { useEffect, useRef, useState } from 'react';
 
+import CommitType from './types/CommitType';
 import RepoBox from './components/RepoBox';
 import RepoType from './types/RepoType';
 import axios from 'axios';
@@ -35,7 +36,6 @@ export function App() {
     repoLan = Array.from(new Set(repoLan));
     setRepoLanguages(repoLan);
     // eslint-disable-next-line no-console
-    console.log(repoLanguages);
     setRepos(repoMain.current);
   }
 
@@ -63,18 +63,18 @@ export function App() {
   }
 
   async function getCommitData(repoName: string) {
-    let commitData = {} as any;
+    let commitData = {} as CommitType;
     try {
       await axios
         .get(`https://api.github.com/repos/${repoName}/commits`)
         .then((res) => {
-          commitData = res.data[0].commit as any;
+          commitData = res.data[0].commit as CommitType;
         });
     } catch {
       commitData = {
         author: { name: 'Author not available', date: 'Date not available' },
         message: 'Message not available',
-      } as any;
+      } as CommitType;
     }
     return commitData;
   }
