@@ -41,3 +41,34 @@
 .hidden {
   display: none;
 }
+
+.NameClass {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.DescriptionClass {
+  margin: 0px;
+  padding-top: 0px;
+  font-size: 15px;
+}
+
+.LanguageClass {
+  margin: 0px;
+  padding-top: 0px;
+  font-size: 15px;
+}
+
+.ForkClass {
+  margin: 0px;
+  padding-top: 0px;
+  font-size: 15px;
+}
+
+.RepoContainer {
+  background: rgba(50, 50, 50, 1);
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
