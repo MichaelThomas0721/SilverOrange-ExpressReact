@@ -66,6 +66,12 @@
   font-size: 15px;
 }
 
+.CreatedClass {
+  margin: 0px;
+  padding-top: 0px;
+  font-size: 15px;
+}
+
 .RepoContainer {
   background: rgba(50, 50, 50, 1);
   border-radius: 10px;
