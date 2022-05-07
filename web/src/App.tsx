@@ -15,11 +15,11 @@ export function App() {
   const [repoLanguages, setRepoLanguages] = useState([] as string[]);
 
   useEffect(() => {
-    getData();
+    getInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function getData() {
+  async function getInitialData() {
     try {
       await axios.get(apiUrl).then((res) => {
         repoMain.current = sortRepos(res.data as RepoType[]);
@@ -61,6 +61,23 @@ export function App() {
       .reverse();
     return passedRepos;
   }
+
+  async function getCommitData(repoName: string) {
+    let commitData = {} as any;
+    try {
+      await axios
+        .get(`https://api.github.com/repos/${repoName}/commits`)
+        .then((res) => {
+          commitData = res.data[0].commit as any;
+        });
+    } catch {
+      commitData = {
+        author: { name: 'Author not available', date: 'Date not available' },
+        message: 'Message not available',
+      } as any;
+    }
+    return commitData;
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -76,7 +93,11 @@ export function App() {
           ))}
         </div>
         {repos.map((repo: RepoType, index: number) => (
-          <div key={index}>
+          <div
+            key={index}
+            // eslint-disable-next-line no-console
+            onClick={() => console.log(getCommitData(repo.full_name))}
+          >
             <RepoBox
               id={repo.id}
               name={repo.name}
