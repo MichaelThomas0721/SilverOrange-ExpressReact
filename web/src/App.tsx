@@ -42,6 +42,14 @@ export function App() {
     <div className="App">
       <header className="App-header">
         <h1>Repositories</h1>
+
+        <div>
+          <h2>Languages</h2>
+          <button>All</button>
+          {repoLanguages.map((language: string, index: number) => (
+            <button key={index}>{language}</button>
+          ))}
+        </div>
         {repos.map((repo: RepoType, index: number) => (
           <div key={index}>
             <RepoBox
