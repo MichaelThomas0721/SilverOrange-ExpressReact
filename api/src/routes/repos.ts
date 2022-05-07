@@ -1,6 +1,9 @@
 import { Request, Response, Router } from 'express';
 
-import localRepos from './../../data/repos.json';
+//Used to read the local json file
+import fs from 'fs';
+import path from 'path';
+//import localRepos from './../../data/repos.json'; //used to test but won't work if the file is expected to change
 import request from 'request';
 
 export const repos = Router();
@@ -15,8 +18,13 @@ repos.get('/', async (_: Request, res: Response) => {
     if (!error && response.statusCode === 200) {
       //parse api data
       let data = JSON.parse(body);
+
+      //get the local data then parse
+      const jsonPath = path.join(__dirname, '..', '..', 'data', 'repos.json');
+      const rawdata = fs.readFileSync(jsonPath, 'utf-8');
+      const parsedData = JSON.parse(rawdata);
       //merge local repos with api repos
-      data = data.concat(localRepos);
+      data = data.concat(parsedData);
       data = data.filter((obj: { fork: boolean }) => {
         return !obj.fork;
       });
@@ -42,7 +50,7 @@ repos.get('/', async (_: Request, res: Response) => {
 
   res.status(200);
 
+  // COMPLETED: See README.md Task (A). Return repo data here. You’ve got this!
   request(options, callback);
-  // TODO: See README.md Task (A). Return repo data here. You’ve got this!
   //res.json([]);
 });
