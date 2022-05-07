@@ -38,6 +38,18 @@ export function App() {
     console.log(repoLanguages);
     setRepos(repoMain.current);
   }
+
+  function filterRepos(language: string | undefined) {
+    const filteredRepos = repoMain.current.filter(
+      (obj: { language: string | undefined }) => {
+        if (!language) {
+          return true;
+        }
+        return obj.language === language;
+      }
+    );
+    setRepos(filteredRepos);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -45,9 +57,11 @@ export function App() {
 
         <div>
           <h2>Languages</h2>
-          <button>All</button>
+          <button onClick={() => filterRepos(undefined)}>All</button>
           {repoLanguages.map((language: string, index: number) => (
-            <button key={index}>{language}</button>
+            <button key={index} onClick={() => filterRepos(language)}>
+              {language}
+            </button>
           ))}
         </div>
         {repos.map((repo: RepoType, index: number) => (
