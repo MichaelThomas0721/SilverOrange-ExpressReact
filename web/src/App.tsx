@@ -33,6 +33,7 @@ export function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Repositories</h1>
         {repos.map((repo: RepoType, index: number) => (
           <div key={index}>
             <RepoBox
@@ -45,17 +46,6 @@ export function App() {
             />
           </div>
         ))}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
