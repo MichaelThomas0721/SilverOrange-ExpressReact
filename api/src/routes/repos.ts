@@ -17,6 +17,9 @@ repos.get('/', async (_: Request, res: Response) => {
       let data = JSON.parse(body);
       //merge local repos with api repos
       data = data.concat(localRepos);
+      data = data.filter((obj: { fork: boolean }) => {
+        return !obj.fork;
+      });
       res.json(data);
     }
   }
