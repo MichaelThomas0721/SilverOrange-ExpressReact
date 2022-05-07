@@ -21,6 +21,12 @@ repos.get('/', async (_: Request, res: Response) => {
         return !obj.fork;
       });
       res.json(data);
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      // eslint-disable-next-line no-console
+      console.log(response.statusCode);
+      res.json([]);
     }
   }
 
