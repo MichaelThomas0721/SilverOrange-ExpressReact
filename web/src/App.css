@@ -34,10 +34,10 @@
   overflow-y: scroll;
 }
 
-.popup_shown {
+.shown {
   display: block;
 }
 
-.popup_hidden {
+.hidden {
   display: none;
 }

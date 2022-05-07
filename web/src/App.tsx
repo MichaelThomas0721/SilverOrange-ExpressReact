@@ -142,7 +142,7 @@ export function App() {
             />
           </div>
         ))}
-        <div className={popupOpen ? 'popup_shown' : 'popup_hidden'}>
+        <div className={popupOpen ? 'shown' : 'hidden'}>
           <Popup
             date={popupData.author.date}
             message={popupData.message}
