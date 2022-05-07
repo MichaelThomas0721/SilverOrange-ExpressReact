@@ -12,6 +12,7 @@ export function App() {
   //Used to hold a main copy of the data from the API
   const repoMain = useRef([] as RepoType[]);
   const [repos, setRepos] = useState([] as RepoType[]);
+  const [repoLanguages, setRepoLanguages] = useState([] as string[]);
 
   useEffect(() => {
     getData();
@@ -28,6 +29,13 @@ export function App() {
       console.log(error);
     }
 
+    let repoLan = [
+      ...new Array(repoMain.current.map((item) => item.language)),
+    ][0];
+    repoLan = Array.from(new Set(repoLan));
+    setRepoLanguages(repoLan);
+    // eslint-disable-next-line no-console
+    console.log(repoLanguages);
     setRepos(repoMain.current);
   }
   return (
