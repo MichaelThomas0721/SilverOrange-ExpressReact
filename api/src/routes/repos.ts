@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 
+import localRepos from './../../data/repos.json';
 import request from 'request';
 
 export const repos = Router();
@@ -12,7 +13,10 @@ repos.get('/', async (_: Request, res: Response) => {
     body: string
   ) {
     if (!error && response.statusCode === 200) {
-      const data = JSON.parse(body);
+      //parse api data
+      let data = JSON.parse(body);
+      //merge local repos with api repos
+      data = data.concat(localRepos);
       res.json(data);
     }
   }
