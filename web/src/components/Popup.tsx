@@ -5,9 +5,11 @@ export default function PopUp(props: {
   name: string;
   message: string;
   readme: string;
+  closePopup: () => void;
 }) {
   return (
     <div className="PopUp">
+      <button onClick={() => props.closePopup()}>Close</button>
       <h1>Most Recent Commit</h1>
       <p className="popup-text">
         Date: {new Date(props.date).toLocaleDateString()}

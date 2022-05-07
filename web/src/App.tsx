@@ -20,6 +20,7 @@ export function App() {
     message: null,
     readme: null,
   } as unknown as CommitType);
+  const [popupOpen, setPopupOpen] = useState(false);
 
   useEffect(() => {
     getInitialData();
@@ -73,8 +74,7 @@ export function App() {
     commitData.readme = await getReadmeData(repoName);
 
     setPopupData(commitData);
-    // eslint-disable-next-line no-console
-    console.log(popupData);
+    setPopupOpen(true);
   }
 
   async function getCommitData(repoName: string) {
@@ -142,12 +142,15 @@ export function App() {
             />
           </div>
         ))}
-        <Popup
-          date={popupData.author.date}
-          message={popupData.message}
-          name={popupData.author.name}
-          readme={popupData.readme}
-        />
+        <div className={popupOpen ? 'popup_shown' : 'popup_hidden'}>
+          <Popup
+            date={popupData.author.date}
+            message={popupData.message}
+            name={popupData.author.name}
+            readme={popupData.readme}
+            closePopup={() => setPopupOpen(false)}
+          />
+        </div>
       </header>
     </div>
   );
