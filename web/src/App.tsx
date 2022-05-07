@@ -3,6 +3,7 @@ import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
 
 import CommitType from './types/CommitType';
+import Popup from './components/Popup';
 import RepoBox from './components/RepoBox';
 import RepoType from './types/RepoType';
 import axios from 'axios';
@@ -14,7 +15,11 @@ export function App() {
   const repoMain = useRef([] as RepoType[]);
   const [repos, setRepos] = useState([] as RepoType[]);
   const [repoLanguages, setRepoLanguages] = useState([] as string[]);
-  const [popupData, setPopupData] = useState({} as CommitType);
+  const [popupData, setPopupData] = useState({
+    author: { date: null, name: null },
+    message: null,
+    readme: null,
+  } as unknown as CommitType);
 
   useEffect(() => {
     getInitialData();
@@ -102,6 +107,7 @@ export function App() {
           readmeData = res.data;
         });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
     return readmeData;
@@ -136,6 +142,12 @@ export function App() {
             />
           </div>
         ))}
+        <Popup
+          date={popupData.author.date}
+          message={popupData.message}
+          name={popupData.author.name}
+          readme={popupData.readme}
+        />
       </header>
     </div>
   );
