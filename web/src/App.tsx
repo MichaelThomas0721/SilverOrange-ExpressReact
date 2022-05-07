@@ -14,6 +14,7 @@ export function App() {
   const repoMain = useRef([] as RepoType[]);
   const [repos, setRepos] = useState([] as RepoType[]);
   const [repoLanguages, setRepoLanguages] = useState([] as string[]);
+  const [popupData, setPopupData] = useState({} as CommitType);
 
   useEffect(() => {
     getInitialData();
@@ -60,6 +61,15 @@ export function App() {
       })
       .reverse();
     return passedRepos;
+  }
+
+  async function HandlePopup(repoName: string) {
+    const commitData = await getCommitData(repoName);
+    commitData.readme = await getReadmeData(repoName);
+
+    setPopupData(commitData);
+    // eslint-disable-next-line no-console
+    console.log(popupData);
   }
 
   async function getCommitData(repoName: string) {
@@ -114,13 +124,7 @@ export function App() {
           <div
             key={index}
             // eslint-disable-next-line no-console
-            onClick={() =>
-              console.log(
-                getCommitData(repo.full_name) +
-                  ', ' +
-                  getReadmeData(repo.full_name)
-              )
-            }
+            onClick={() => HandlePopup(repo.full_name)}
           >
             <RepoBox
               id={repo.id}
