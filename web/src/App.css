@@ -18,3 +18,26 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.PopUp {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: fit-content;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  max-height: 90%;
+  overflow-y: scroll;
+}
+
+.popup_shown {
+  display: block;
+}
+
+.popup_hidden {
+  display: none;
+}
